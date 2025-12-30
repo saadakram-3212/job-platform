@@ -1,45 +1,139 @@
-# Web-to-Native Conversion Tool
+# Web-to-Native Conversion Platform
 
 ## Overview
-[cite_start]This platform is designed to convert existing web applications into native mobile apps using the **Flutter** framework[cite: 4, 5]. [cite_start]It utilizes a combination of static analysis, runtime behavior tracing, and AI-driven mapping to transform web constructs into native mobile components[cite: 5, 7].
 
-## High-Level Concept
-[cite_start]The tool automatically analyzes a web app's source code and runtime behavior to create a structured internal "blueprint" of the UI, state, and APIs[cite: 7, 12]. [cite_start]It then computes a mapping from web constructs to native constructs to generate a functional Flutter project[cite: 7, 13, 14].
+This platform automatically converts web applications into native mobile apps using intelligent analysis, structured blueprinting, and AI-driven code generation. It analyzes both the source code and runtime behavior of web apps to produce production-ready Flutter applications with native integrations.
 
----
+## How It Works
+
+The platform takes a web application as input (via Git repository, file upload, or hosted URL) and performs comprehensive analysis to understand its structure, behavior, and functionality. It then generates an equivalent native mobile app that maintains feature parity while leveraging native mobile capabilities.
+
+### Conversion Pipeline
+
+1. **Ingest** - Collect source code, assets, and configuration
+2. **Analyze** - Parse code structure and record runtime behavior
+3. **Blueprint** - Create a canonical representation of the app
+4. **Map** - Transform web constructs into native equivalents
+5. **Generate** - Produce Flutter project with native integrations
+6. **Refine** - Allow iterative editing and AI-driven improvements
+7. **Build** - Compile to APK/IPA for deployment
 
 ## Main Components
 
-### 1. Backend & Orchestration
-* [cite_start]**Tech Stack:** Built with **Node.js and TypeScript**[cite: 80].
-* [cite_start]**AI Engine:** Integrates **GPT-5, Claude, or 01-mini** for blueprint extraction and code generation[cite: 55, 87].
-* [cite_start]**AI Fixer:** Includes an LLM-based system to automatically identify and fix compilation issues in the generated code[cite: 49, 92].
+### Backend API
 
-### 2. Analysis Worker (Static & Runtime)
-* [cite_start]**Static Analysis:** Uses tools like **Babel, SWC, and Tree-sitter** to parse JS/TS/HTML/CSS into Abstract Syntax Trees (ASTs)[cite: 10, 24, 81].
-* [cite_start]**Runtime Instrumentation:** Uses **Puppeteer or Playwright** to record DOM events, network calls, and storage usage during live app execution[cite: 11, 28, 82].
+The core orchestration layer that manages the conversion workflow and coordinates between components.
 
-### 3. Editor & Preview
-* [cite_start]**Code Editor:** Features an integrated **Monaco editor** with a file tree for manual code refinements[cite: 51, 64].
-* [cite_start]**Live Preview:** Provides a real-time view of the app using a **web-based WASM preview or a cloud emulator**[cite: 17, 52].
-* [cite_start]**Diffing Engine:** Uses **AST-aware comparison** to show changes and allow for incremental updates while preserving user edits[cite: 42, 44].
+- **API Server**: Handles user requests, authentication, and job management
+- **Orchestrator**: Coordinates analysis, generation, and build processes
+- **LLM Integration**: Interfaces with GPT/Claude for intelligent code generation and refinement
+- **Editor Service**: Provides code editing capabilities with live preview
 
-### 4. Storage & Artifacts
-* [cite_start]**Data Storage:** Uses **Postgres or MongoDB** for structured data and metadata[cite: 83].
-* [cite_start]**Asset Storage:** Utilizes **S3 or Supabase** for project artifacts and build files[cite: 83].
-* [cite_start]**Context Management:** Employs a **vector database** for RAG (Retrieval-Augmented Generation) to maintain context-aware code generation[cite: 58, 87].
+**Tech Stack**: Node.js, TypeScript, Express/Fastify
 
-### 5. CI/CD & Build Pipeline
-* [cite_start]**Build Integration:** Connects to **Codemagic, BuildShip, or GitHub Actions** for automated builds[cite: 18, 86].
-* [cite_start]**Output:** Generates production-ready **APK** (Android) and **IPA** (iOS) files with one click[cite: 18, 53].
+### Worker Services
 
----
+Distributed processing units that handle computationally intensive tasks.
 
-## Core Pipeline
-1.  [cite_start]**Ingest:** Collect source code, assets, or hosted URL[cite: 9].
-2.  [cite_start]**Analyze:** Perform static and runtime analysis to extract app logic[cite: 10, 11].
-3.  [cite_start]**Blueprint:** Generate a canonical JSON representation of screens and APIs[cite: 12, 31].
-4.  [cite_start]**Map:** Translate web elements into native Flutter widgets[cite: 13, 33].
-5.  [cite_start]**Generate:** Produce the final Flutter project files and models[cite: 14, 39].
-6.  [cite_start]**Refine:** Edit code in the browser and apply AI-driven patches[cite: 17, 43].
-7.  [cite_start]**Publish:** Build and ship via automated CI pipelines[cite: 18, 53].
+- **Static Analysis Worker**: Parses JavaScript/TypeScript/HTML/CSS into ASTs, extracts components, routes, state management, and API calls
+- **Runtime Analysis Worker**: Uses Puppeteer/Playwright for headless browser instrumentation, records DOM events, network traffic, and user flows
+- **Blueprint Generator**: Combines static and runtime data into structured JSON representation
+- **Code Generation Worker**: Produces Flutter projects from blueprints using template-based and AST-aware generation
+- **Diff & Patch Worker**: Computes incremental updates and preserves user modifications
+
+**Tech Stack**: Node.js workers, Python for analysis tools, Babel, SWC, Tree-sitter
+
+### CI/CD Pipeline
+
+Automated validation, testing, and build infrastructure.
+
+- **Validation**: Runs `flutter analyze` and static checks
+- **Testing**: Executes functional parity tests and visual regression tests
+- **Compilation**: Performs dry runs to catch errors early
+- **Build Service**: Integrates with Codemagic/BuildShip for APK/IPA generation
+- **LLM Fixer**: Automatically resolves compilation issues using AI
+
+**Tech Stack**: GitHub Actions, Codemagic, BuildShip
+
+### Storage Layer
+
+Persistent data management for artifacts, projects, and analysis results.
+
+- **Database**: Stores user projects, blueprints, conversion metadata, and job status
+- **Object Storage**: Manages source code archives, generated projects, build artifacts, and assets
+- **Vector Database**: Enables RAG (Retrieval-Augmented Generation) for context-aware code generation
+- **Cache**: Improves performance for repeated analysis and common patterns
+
+**Tech Stack**: PostgreSQL/MongoDB, S3/Supabase, Vector DB (Pinecone/Weaviate)
+
+## Key Features
+
+- **Intelligent Mapping**: Automatically maps HTML/CSS/JS to Flutter widgets and APIs
+- **State Management**: Converts web state patterns to Provider/Riverpod/Bloc
+- **API Integration**: Transforms REST/GraphQL calls to native HTTP clients
+- **Native Features**: Adds mobile-specific capabilities (camera, push notifications, sensors)
+- **Incremental Updates**: AST-based diffing preserves user modifications
+- **Live Preview**: Real-time preview with web or cloud emulator
+- **AI Refinement**: Iterative improvements using large language models
+
+
+## Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/your-org/web2native-platform.git
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+
+# Start development server
+npm run dev
+```
+
+## Architecture Diagram
+
+```
+┌─────────────┐
+│   Web App   │
+└──────┬──────┘
+       │
+       v
+┌─────────────────────────────────────┐
+│         Backend API                 │
+│  (Orchestration & LLM Integration)  │
+└──────┬──────────────────────────────┘
+       │
+       v
+┌─────────────────────────────────────┐
+│        Worker Services              │
+│  ┌──────────┐  ┌─────────────┐    │
+│  │ Static   │  │  Runtime    │    │
+│  │ Analysis │  │  Analysis   │    │
+│  └──────────┘  └─────────────┘    │
+│  ┌──────────┐  ┌─────────────┐    │
+│  │Blueprint │  │    Code     │    │
+│  │Generator │  │  Generator  │    │
+│  └──────────┘  └─────────────┘    │
+└──────┬──────────────────────────────┘
+       │
+       v
+┌─────────────────────────────────────┐
+│         CI/CD Pipeline              │
+│  (Validation, Testing, Building)    │
+└──────┬──────────────────────────────┘
+       │
+       v
+┌─────────────────────────────────────┐
+│      Storage Layer                  │
+│  (Database, S3, Vector DB, Cache)   │
+└─────────────────────────────────────┘
+       │
+       v
+┌─────────────┐
+│ Flutter App │
+│  (APK/IPA)  │
+└─────────────┘
+```
