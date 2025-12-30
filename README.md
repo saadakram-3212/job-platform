@@ -81,7 +81,7 @@ Persistent data management for artifacts, projects, and analysis results.
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/web2native-platform.git
+git clone git@github.com:saadakram-3212/job-platform.git
 
 # Install dependencies
 npm install
@@ -109,14 +109,14 @@ npm run dev
        v
 ┌─────────────────────────────────────┐
 │        Worker Services              │
-│  ┌──────────┐  ┌─────────────┐    │
-│  │ Static   │  │  Runtime    │    │
-│  │ Analysis │  │  Analysis   │    │
-│  └──────────┘  └─────────────┘    │
-│  ┌──────────┐  ┌─────────────┐    │
-│  │Blueprint │  │    Code     │    │
-│  │Generator │  │  Generator  │    │
-│  └──────────┘  └─────────────┘    │
+│  ┌──────────┐  ┌─────────────┐      │
+│  │ Static   │  │  Runtime    │      │
+│  │ Analysis │  │  Analysis   │      │
+│  └──────────┘  └─────────────┘      │
+│  ┌──────────┐  ┌─────────────┐      │
+│  │Blueprint │  │    Code     │      │
+│  │Generator │  │  Generator  │      │
+│  └──────────┘  └─────────────┘      │
 └──────┬──────────────────────────────┘
        │
        v
